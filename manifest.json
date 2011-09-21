@@ -1,0 +1,13 @@
+{
+  "name": "naurls.me Chrome Extension",
+  "version": "0.1",
+  "description": "Shorten urls with naurls.me",
+  "browser_action": {
+    "default_icon": "icon.png",
+    "popup": "popup.html"
+  },
+  "permissions": [
+    "http://naurls.me/*",
+    "tabs"
+  ]
+}

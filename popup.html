@@ -1,0 +1,38 @@
+<script type="text/javascript" src="ZeroClipboard.js"></script>
+<style>
+p {
+  font-family: Helvetica, Arial, sans-serif;
+}
+</style>
+
+<script>
+var result, clip = new ZeroClipboard.Client();
+
+function shorten(url) {  
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "http://naurls.me/shorten?u=" + url, true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+      // JSON.parse does not evaluate the attacker's scripts.
+      result = xhr.responseText;
+      showResult();
+    }
+  }
+  xhr.send();
+}
+
+function showResult() {
+  var json = JSON.parse(result);
+  var url = "http://naurls.me/" + json.key;
+  document.getElementById("sh_url").innerHTML = url;
+  clip.setText(url);
+}
+
+// clip.glue(document.getElementById("sh_url"));
+
+chrome.tabs.getSelected(null,function(tab) {
+  shorten(tab.url);
+});
+</script>
+
+<p id="sh_url"><img src="ajax-loader.gif" /></p>
